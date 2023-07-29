@@ -46,10 +46,11 @@ const HomePage = () => {
 
   useEffect(() => {
     getAllData();
-  },[]);
-  console.log(empData);
+  }, []);
+  // console.log(empData);
 
   // console.log(empData);
+
 
   return (
     <>
@@ -71,6 +72,13 @@ const HomePage = () => {
               </button>
             </div>
           </Link>
+          {/* <Link to={"/update"}>
+          <div>
+              <button className="rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold leading-7 text-white hover:bg-indigo-500 ">
+                Update Employee
+              </button>
+            </div>
+          </Link> */}
         </div>
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -104,6 +112,7 @@ const HomePage = () => {
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     {empData?.data.map((person) => (
                       <tr key={person.name}>
+
                         <td className="py-4 px-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10">
@@ -135,6 +144,17 @@ const HomePage = () => {
                         <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                           {person.role}
                         </td>
+                        {
+                          console.log(person)
+                        }
+                        <Link to={`/update/${person._id}`}>
+                          <div>
+                            <button className=" text-white align-middle mt-5 rounded-md bg-slate-800 p-2 hover:bg-black">
+                              Update Item
+
+                            </button>
+                          </div>
+                        </Link>
                       </tr>
                     ))}
                   </tbody>
