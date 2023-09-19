@@ -8,7 +8,6 @@ const HomePage = () => {
   const [empData, setEmpData] = useState();
  
   const { id } = useParams();
-  const [task, setTask] = useState(null);
 
   // useEffect(() => {
 
