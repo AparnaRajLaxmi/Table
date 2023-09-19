@@ -1,4 +1,3 @@
-// Importing the Mongoose library
 const mongoose = require("mongoose");
 
 // Importing the environment variables using the dotenv library

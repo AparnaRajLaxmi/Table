@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-// const people = [
-//   {
-//     name: "John Doe",
-//     title: "Front-end Developer",
-//     department: "Engineering",
-//     email: "john@devui.com",
-//     role: "Developer",
-//     image:
-//       "https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80",
-//   },
-//   {
-//     name: "Jane Doe",
-//     title: "Back-end Developer",
-//     department: "Engineering",
-//     email: "jane@devui.com",
-//     role: "CTO",
-//     image:
-//       "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-//   },
-// ];
+
 
 const HomePage = () => {
   const [empData, setEmpData] = useState();
+ 
+  const { id } = useParams();
+  const [task, setTask] = useState(null);
+
+  // useEffect(() => {
+
+  //   const fetchTaskDetails = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/tasks/${id}`);
+  //       setTask(response.data); // Assuming your API returns the task details
+  //     } catch (error) {
+  //       console.error('Error fetching task details:', error);
+  //     }
+  //   };
+
+  //   fetchTaskDetails();
+  // }, [id]);
+
+  
+
 
   const getAllData = async () => {
     try {
@@ -42,11 +44,22 @@ const HomePage = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+};
+
+const deleteEmployee = async () => {
+  try {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/deleteUser/${id}`);
+    alert('Task deleted successfully');
+    Navigate("/")
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+}
 
   useEffect(() => {
     getAllData();
   }, []);
+
   // console.log(empData);
 
   // console.log(empData);
@@ -72,13 +85,6 @@ const HomePage = () => {
               </button>
             </div>
           </Link>
-          {/* <Link to={"/update"}>
-          <div>
-              <button className="rounded-md bg-indigo-600 px-3.5 py-1.5 text-sm font-semibold leading-7 text-white hover:bg-indigo-500 ">
-                Update Employee
-              </button>
-            </div>
-          </Link> */}
         </div>
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -151,7 +157,13 @@ const HomePage = () => {
                           <div>
                             <button className=" text-white align-middle mt-5 rounded-md bg-slate-800 p-2 hover:bg-black">
                               Update Item
-
+                            </button>
+                          </div>
+                        </Link>
+                        <Link to={`/delete/${person._id}`}>
+                          <div>
+                            <button className=" text-white align-middle mt-5 rounded-md bg-slate-800 p-2 hover:bg-black" onClick={() => deleteEmployee(person._id)}>
+                              delete Item
                             </button>
                           </div>
                         </Link>
